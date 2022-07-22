@@ -19,7 +19,12 @@ real time chat app with web3 functionality and authentication
     - 
   - Liberties
     - RTK-Query
-    - Wagmi
+    - Wagmi: great hooks for react, same functionality 
+
+### Interesting Features
+
+  - generating TypeScript types automatically via Github Actions: https://supabase.com/docs/guides/api/generating-types
+  - RTK-Query has a special Streaming Updates cache feature for realtime applications: https://redux-toolkit.js.org/rtk-query/usage/streaming-updates
 
 ### Product Spec
 
