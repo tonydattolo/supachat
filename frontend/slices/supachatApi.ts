@@ -1,4 +1,7 @@
 import { createApi, fakeBaseQuery } from "@reduxjs/toolkit/query/react";
+import supabase from "utils/supabase";
+import Message from "@/types/Message";
+
 
 export const supachatApi = createApi({
     reducerPath: "supachat",
@@ -8,13 +11,15 @@ export const supachatApi = createApi({
         getMessages: builder.query({
             queryFn: async () => {
                 const messages = await supabase
-                    .from("messages")
+                    .from<Message>("messages")
                     .select("*")
-                    .orderBy("created_at", "desc")
+                    // .select("*, author:user_id(username)")
+                    .order("created_at")
                     .limit(10)
-                    .get();
+                    
                 return {
                     data: messages,
+                    // check for default return value behaviors of queryFn vs query
                 };
             }
         }),
@@ -40,4 +45,6 @@ export const supachatApi = createApi({
 });
 
 export const {
+    useGetMessagesQuery,
+    useLazyGetMessagesQuery,
 } = supachatApi;

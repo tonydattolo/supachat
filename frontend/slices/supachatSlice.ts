@@ -24,6 +24,6 @@ export const {
     addMessage,
 } = slice.actions;
 
-export const selectMessages = (state: RootState) => state.messages;
+export const selectMessages = (state: RootState) => state.supachat.messages;
 
 export default slice.reducer;

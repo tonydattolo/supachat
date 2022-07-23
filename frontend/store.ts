@@ -19,8 +19,10 @@ import {
 } from "redux-persist";
 import { TypedUseSelectorHook, useSelector, useDispatch } from "react-redux";
 
+// import { useAppDispatch, useAppSelector } from "hooks/rtkHooks";
+
 const reducers = combineReducers({
-  [supachatApi.reducerPath]: supachatApi.reducer,
+  // [supachatApi.reducerPath]: supachatApi.reducer,
   supachat,
 });
 
@@ -28,7 +30,7 @@ const persistConfig = {
   key: "root",
   version: 1,
   storage,
-  blacklist: [supachatApi.reducerPath],
+  // blacklist: [supachatApi.reducerPath],
 };
 
 const persistedReducer = persistReducer(persistConfig, reducers);
@@ -38,6 +40,7 @@ export const makeStore = () =>
     reducer: persistedReducer,
     // Adding the api middleware enables caching, invalidation, polling,
     // and other useful features of `rtk-query`.
+    // @ts-ignore
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware({
         serializableCheck: {
@@ -47,12 +50,24 @@ export const makeStore = () =>
       .concat(supachatApi.middleware),
   });
 
-export const store = makeStore();
+
+  export const store = makeStore();
+
+// optional, but required for refetchOnFocus/refetchOnReconnect behaviors
+// see `setupListeners` docs - takes an optional callback as the 2nd arg for customization
+setupListeners(store.dispatch);
+
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
 export type RootState = ReturnType<typeof store.getState>;
 // Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
 export type AppDispatch = typeof store.dispatch
+
+// export type AppState = ReturnType<typeof store.getState>;
+
+// export const useAppSelector: TypedUseSelectorHook<AppState> = useSelector;
+
+// export const useAppDispatch: () => typeof store.dispatch = useDispatch;
 
 // NOTE: normally you would use `useSelector` and `useDispatch` in your app
 // However, moving them into their own hooks file avoids circular import dependency
@@ -65,6 +80,3 @@ export type AppDispatch = typeof store.dispatch
 // export const useAppDispatch: () => typeof store.dispatch = useDispatch;
 
 
-// optional, but required for refetchOnFocus/refetchOnReconnect behaviors
-// see `setupListeners` docs - takes an optional callback as the 2nd arg for customization
-setupListeners(store.dispatch);
