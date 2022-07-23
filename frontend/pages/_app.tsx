@@ -11,6 +11,8 @@ import { store } from "../store"
 import { WagmiConfig, createClient, configureChains, chain } from "wagmi";
 import { publicProvider } from "wagmi/providers/public";
 
+import Layout from '@/components/Layouts/Layout';
+
 
 
 const { provider, webSocketProvider } = configureChains(
@@ -38,13 +40,24 @@ type AppPropsWithLayout = AppProps & {
 export const MyApp: React.FC<AppPropsWithLayout> = ({ Component, pageProps }: AppPropsWithLayout) => {
 
   // Use the layout defined at the page level, if available
-  const getLayout = Component.getLayout ?? ((page) => page)
+  const getLayout = Component.getLayout || ((page) => page)
 
   return (
     <RTKProvider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <WagmiConfig client={client}>
-          {getLayout(<Component {...pageProps} />)}
+          {Component.getLayout ? (
+              <>
+                {getLayout(<Component {...pageProps} />)}
+              </>
+            ) : (
+              <>
+                <Layout>
+                  <Component {...pageProps} />
+                </Layout>
+              </>
+            )}
+          {/* {getLayout(<Component {...pageProps} />)} */}
         </WagmiConfig>
       </PersistGate>
     </RTKProvider>
