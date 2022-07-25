@@ -16,7 +16,7 @@ import Layout from "@/components/Layouts/Layout";
 
 const { provider, webSocketProvider } = configureChains(
   [chain.polygon],
-  [publicProvider()]
+  [publicProvider()],
 );
 
 const client = createClient({

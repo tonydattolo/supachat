@@ -34,4 +34,9 @@ module.exports = {
     "@typescript-eslint/no-empty-function": "off",
     "@typescript-eslint/ban-ts-comment": "off",
   },
+  settings: {
+    react: {
+      version: "detect",
+    },
+  },
 };
