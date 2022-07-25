@@ -1,4 +1,4 @@
-name: ci
+name: frontend-ci
 
 on:
   push:
@@ -11,14 +11,15 @@ on:
       - master
 
 jobs:
-  ci:
+  frontend-ci:
     runs-on: ${{ matrix.os }}
-
+    defaults:
+      run:
+        working-directory: ./frontend
     strategy:
       matrix:
         os: [ubuntu-latest]
         node: [16]
-
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -29,7 +30,7 @@ jobs:
           node-version: ${{ matrix.node }}
 
       - name: Cache node_modules
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ~/.npm
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
@@ -37,9 +38,7 @@ jobs:
             ${{ runner.os }}-node-
 
       - name: Install dependencies
-        run: | 
-          npm i
-          npm ci
+        run: npm i
 
       - name: Run code style check
         run: npm run style:all
