@@ -1,0 +1,47 @@
+name: frontend-ci
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  pull_request:
+    branches:
+      - main
+      - master
+
+jobs:
+  frontend-ci:
+    runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        working-directory: ./frontend
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node: [16]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup node env
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node }}
+
+      - name: Cache node_modules
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Install dependencies
+        run: npm i
+
+      - name: Run code style check
+        run: npm run style:all
+
+      # - name: Run unit tests
+      #   run: npm test
