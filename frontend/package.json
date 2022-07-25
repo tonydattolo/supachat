@@ -5,17 +5,26 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "prepare": "husky install",
+    "prepare": "cd .. && husky install ./frontend/.husky",
     "style:all": "tsc && npm run style:lint && npm run style:prettier",
     "style:lint": "eslint '**/*.{js,jsx,ts,tsx}'",
     "style:prettier": "prettier --check '**/*.{js,jsx,ts,tsx}'",
     "make-pretty": "prettier --write '**/*.{js,jsx,ts,tsx}'"
+  },
+  "workspaces": [
+    "frontend/*"
+  ],
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   },
   "dependencies": {
     "@headlessui/react": "^1.6.6",
     "@heroicons/react": "^1.0.6",
     "@reduxjs/toolkit": "^1.8.3",
     "@supabase/supabase-js": "^1.35.4",
+    "eslint-config-airbnb-typescript": "^17.0.0",
     "eslint-config-prettier": "^8.5.0",
     "ethers": "^5.6.9",
     "husky": "^8.0.1",
