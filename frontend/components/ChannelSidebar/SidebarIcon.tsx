@@ -1,31 +1,21 @@
-import { ReactNode } from 'react'
-import { IconType } from 'react-icons'
+import { ReactNode } from "react";
+import { IconType } from "react-icons";
 
 type SidebarIconProps = {
-  icon: JSX.Element,
-  // icon: ReactNode,
-  alt: string,
-  onClick?: () => void,
-  imageUrl?: string,
-  tooltip?: string,
-}
+  icon: JSX.Element;
+  tooltip?: string;
+};
 
-const SidebarIcon: React.FC<SidebarIconProps> = ({ 
+const SidebarIcon: React.FC<SidebarIconProps> = ({
   icon,
-  alt,
-  onClick,
-  imageUrl,
-  tooltip = 'tooltip',
- }) => {
+  tooltip = "tooltip",
+}: SidebarIconProps) => {
   return (
-    <div className='sidebar-icon group'>
+    <div className="sidebar-icon group">
       {icon}
-      <span className="sidebar-tooltip group-hover:scale-100">
-        {tooltip}
-      </span>
-
+      <span className="sidebar-tooltip group-hover:scale-100">{tooltip}</span>
     </div>
-  )
-}
+  );
+};
 
-export default SidebarIcon
+export default SidebarIcon;

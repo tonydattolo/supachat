@@ -25,6 +25,7 @@ real time chat app with web3 functionality and authentication
 
   - generating TypeScript types automatically via Github Actions: https://supabase.com/docs/guides/api/generating-types
   - RTK-Query has a special Streaming Updates cache feature for realtime applications: https://redux-toolkit.js.org/rtk-query/usage/streaming-updates
+  - CI process https://www.youtube.com/watch?v=IrPz0kd2FTk
 
 ### Product Spec
 

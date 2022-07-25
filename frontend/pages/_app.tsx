@@ -1,7 +1,7 @@
-import '../styles/globals.css'
-import type { AppProps } from 'next/app'
-import { ReactElement, ReactNode } from 'react';
-import type { NextPage } from 'next'
+import "../styles/globals.css";
+import type { AppProps } from "next/app";
+import { ReactElement, ReactNode } from "react";
+import type { NextPage } from "next";
 
 import { Provider as RTKProvider } from "react-redux";
 import { persistStore } from "redux-persist";
@@ -12,9 +12,7 @@ import store, { persistor } from "@/store/store";
 import { WagmiConfig, createClient, configureChains, chain } from "wagmi";
 import { publicProvider } from "wagmi/providers/public";
 
-import Layout from '@/components/Layouts/Layout';
-
-
+import Layout from "@/components/Layouts/Layout";
 
 const { provider, webSocketProvider } = configureChains(
   [chain.polygon],
@@ -27,19 +25,16 @@ const client = createClient({
   webSocketProvider,
 });
 
-
 export type NextPageWithLayout = NextPage & {
-  getLayout?: (page: ReactElement) => ReactNode
-}
+  getLayout?: (page: ReactElement) => ReactNode;
+};
 
 type AppPropsWithLayout = AppProps & {
-  Component: NextPageWithLayout
-}
-
+  Component: NextPageWithLayout;
+};
 
 // export const MyApp: React.FC<AppPropsWithLayout> = ({ Component, pageProps }: AppPropsWithLayout) => {
 function MyApp({ Component, pageProps }: AppPropsWithLayout) {
-
   // Use the layout defined at the page level, if available
   const getLayout = Component.getLayout || ((page) => page);
 
@@ -48,9 +43,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
       <PersistGate loading={null} persistor={persistor}>
         <WagmiConfig client={client}>
           {Component.getLayout ? (
-            <>
-              {getLayout(<Component {...pageProps} />)}
-            </>
+            <>{getLayout(<Component {...pageProps} />)}</>
           ) : (
             <>
               <Layout>
@@ -65,4 +58,4 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   );
 }
 
-export default MyApp
+export default MyApp;

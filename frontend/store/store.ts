@@ -24,27 +24,22 @@ const persistConfig = {
   key: "root",
   version: 1,
   storage: storage,
-  blacklist: [
-    "supachat",
-  ]
+  blacklist: ["supachat"],
 };
 
 const persistedReducer = persistReducer(persistConfig, reducers);
 
-
-
 const store = configureStore({
   reducer: persistedReducer,
-    // Adding the api middleware enables caching, invalidation, polling,
-    // and other useful features of `rtk-query`.
-    // @ts-ignore
-    middleware: (getDefaultMiddleware) =>
+  // Adding the api middleware enables caching, invalidation, polling,
+  // and other useful features of `rtk-query`.
+  //@ts-ignore
+  middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
-          ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-        },
-      })
-      .concat(supachatApi.middleware),
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }).concat(supachatApi.middleware),
 });
 
 export default store;
@@ -54,13 +49,11 @@ export const persistor = persistStore(store);
 // Infer the `RootState` and `AppDispatch` types from the store itself
 export type RootState = ReturnType<typeof store.getState>;
 // Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
-export type AppDispatch = typeof store.dispatch
+export type AppDispatch = typeof store.dispatch;
 
 // optional, but required for refetchOnFocus/refetchOnReconnect behaviors
 // see `setupListeners` docs - takes an optional callback as the 2nd arg for customization
 // setupListeners(store.dispatch);
-
-
 
 // NOTE: normally you would use `useSelector` and `useDispatch` in your app
 // However, moving them into their own hooks file avoids circular import dependency
@@ -71,5 +64,3 @@ export type AppDispatch = typeof store.dispatch
 
 // export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 // export const useAppDispatch: () => typeof store.dispatch = useDispatch;
-
-
