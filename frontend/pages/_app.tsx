@@ -6,7 +6,8 @@ import type { NextPage } from 'next'
 import { Provider as RTKProvider } from "react-redux";
 import { persistStore } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
-import { store } from "../store"
+// import { store, persistor } from "../store"
+import store, { persistor } from "@/store/store";
 
 import { WagmiConfig, createClient, configureChains, chain } from "wagmi";
 import { publicProvider } from "wagmi/providers/public";
@@ -26,7 +27,6 @@ const client = createClient({
   webSocketProvider,
 });
 
-let persistor = persistStore(store);
 
 export type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactNode
@@ -37,31 +37,32 @@ type AppPropsWithLayout = AppProps & {
 }
 
 
-export const MyApp: React.FC<AppPropsWithLayout> = ({ Component, pageProps }: AppPropsWithLayout) => {
+// export const MyApp: React.FC<AppPropsWithLayout> = ({ Component, pageProps }: AppPropsWithLayout) => {
+function MyApp({ Component, pageProps }: AppPropsWithLayout) {
 
   // Use the layout defined at the page level, if available
-  const getLayout = Component.getLayout || ((page) => page)
+  const getLayout = Component.getLayout || ((page) => page);
 
   return (
     <RTKProvider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <WagmiConfig client={client}>
           {Component.getLayout ? (
-              <>
-                {getLayout(<Component {...pageProps} />)}
-              </>
-            ) : (
-              <>
-                <Layout>
-                  <Component {...pageProps} />
-                </Layout>
-              </>
-            )}
+            <>
+              {getLayout(<Component {...pageProps} />)}
+            </>
+          ) : (
+            <>
+              <Layout>
+                <Component {...pageProps} />
+              </Layout>
+            </>
+          )}
           {/* {getLayout(<Component {...pageProps} />)} */}
         </WagmiConfig>
       </PersistGate>
     </RTKProvider>
-  )
+  );
 }
 
 export default MyApp

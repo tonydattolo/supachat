@@ -2,6 +2,8 @@ import { AppProps, AppInitialProps } from "next/app"
 import { PropsWithChildren } from "react"
 import Head from "next/head"
 
+import ChannelSidebar from "@/components/ChannelSidebar/ChannelSidebar"
+
 interface Props {
   children: React.ReactNode
 }
@@ -19,11 +21,9 @@ export const Layout: React.FC<PropsWithChildren<Props>> = ({ children }) => {
         <title>LAYOUT</title>
       </Head>
 
-      <div className="w-full flex flex-col sm:flex-row flex-wrap sm:flex-nowrap py-4 flex-grow">
-        {/* <!-- fixed-width --> */}
+      {/* <div className="w-full flex flex-col sm:flex-row flex-wrap sm:flex-nowrap py-4 flex-grow">
         <div className="w-fixed w-full flex-shrink flex-grow-0 px-4">
             <div className="sticky top-0 p-4 w-full h-full">
-                {/* <!-- nav goes here --> */}
                 <ul>
                     <li>
                         <a href="#">Home</a>  
@@ -33,7 +33,10 @@ export const Layout: React.FC<PropsWithChildren<Props>> = ({ children }) => {
                     </li>
                 </ul>
             </div>
-        </div>
+        </div> */}
+
+        <ChannelSidebar />
+
         <main role="main" className="w-full flex-grow pt-1 px-3">
             {/* <!-- fluid-width: main content goes here --> */}
             {children}
@@ -47,7 +50,7 @@ export const Layout: React.FC<PropsWithChildren<Props>> = ({ children }) => {
                 </button>
             </div>
         </div>
-    </div>
+    {/* </div> */}
 
       {/* <main>{children}</main> */}
 

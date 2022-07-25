@@ -1,13 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/query/react";
-// import { zebraApi } from "./slices/zebraApi";
-// import useNftModal from "./slices/useNftModalSlice";
-
-import { supachatApi } from "@/slices/supachatApi";
-import supachat from "@/slices/supachatSlice";
-
 import { combineReducers } from "redux";
-import { persistReducer } from "redux-persist";
+import { persistReducer, persistStore } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import {
   FLUSH,
@@ -17,9 +11,9 @@ import {
   PURGE,
   REGISTER,
 } from "redux-persist";
-import { TypedUseSelectorHook, useSelector, useDispatch } from "react-redux";
 
-// import { useAppDispatch, useAppSelector } from "hooks/rtkHooks";
+import { supachatApi } from "@/slices/supachatApi";
+import supachat from "@/slices/supachatSlice";
 
 const reducers = combineReducers({
   // [supachatApi.reducerPath]: supachatApi.reducer,
@@ -29,45 +23,44 @@ const reducers = combineReducers({
 const persistConfig = {
   key: "root",
   version: 1,
-  storage,
-  // blacklist: [supachatApi.reducerPath],
+  storage: storage,
+  blacklist: [
+    "supachat",
+  ]
 };
 
 const persistedReducer = persistReducer(persistConfig, reducers);
 
-export const makeStore = () =>
-  configureStore({
-    reducer: persistedReducer,
+
+
+const store = configureStore({
+  reducer: persistedReducer,
     // Adding the api middleware enables caching, invalidation, polling,
     // and other useful features of `rtk-query`.
     // @ts-ignore
     middleware: (getDefaultMiddleware) =>
-      getDefaultMiddleware({
-        serializableCheck: {
+    getDefaultMiddleware({
+      serializableCheck: {
           ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
         },
       })
       .concat(supachatApi.middleware),
-  });
+});
 
+export default store;
 
-  export const store = makeStore();
-
-// optional, but required for refetchOnFocus/refetchOnReconnect behaviors
-// see `setupListeners` docs - takes an optional callback as the 2nd arg for customization
-setupListeners(store.dispatch);
-
+export const persistor = persistStore(store);
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
 export type RootState = ReturnType<typeof store.getState>;
 // Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
 export type AppDispatch = typeof store.dispatch
 
-// export type AppState = ReturnType<typeof store.getState>;
+// optional, but required for refetchOnFocus/refetchOnReconnect behaviors
+// see `setupListeners` docs - takes an optional callback as the 2nd arg for customization
+// setupListeners(store.dispatch);
 
-// export const useAppSelector: TypedUseSelectorHook<AppState> = useSelector;
 
-// export const useAppDispatch: () => typeof store.dispatch = useDispatch;
 
 // NOTE: normally you would use `useSelector` and `useDispatch` in your app
 // However, moving them into their own hooks file avoids circular import dependency
