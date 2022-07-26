@@ -6,13 +6,15 @@ const ThemeToggle: React.FC = () => {
   const handleMode = () => setDarkTheme(!darkTheme);
 
   return (
-    <span onClick={handleMode}>
-      {darkTheme ? (
-        <FaSun size="24" className="topnav-icon" />
-      ) : (
-        <FaMoon size="24" className="topnav-icon" />
-      )}
-    </span>
+    <div className="flex items-center bg-gray-400 dark:bg-gray-600 px-2 h-9 mr-3 rounded-md shadow-md transition duration-300 ease-in-out">
+      <span onClick={handleMode}>
+        {darkTheme ? (
+          <FaSun size="24" className="topnav-icon text-yellow-400" />
+        ) : (
+          <FaMoon size="24" className="topnav-icon text-gray-600" />
+        )}
+      </span>
+    </div>
   );
 };
 
