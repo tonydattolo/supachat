@@ -15,7 +15,6 @@
     "jsx": "preserve",
     "incremental": true,
 
-    
     "baseUrl": "./",
     "paths": {
       "@/components/*": ["components/*"],
@@ -24,10 +23,15 @@
       "@/types/*": ["types/*"],
       "@/utils/*": ["utils/*"],
       "@/hooks/*": ["hooks/*"],
-      "@/store/*": ["store/*"],
-      
+      "@/store/*": ["store/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "store/store.ts"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "store/store.ts",
+    "hooks/useDarkMode.jsx"
+  ],
   "exclude": ["node_modules"]
 }

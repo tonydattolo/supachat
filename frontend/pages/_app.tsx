@@ -9,21 +9,29 @@ import { PersistGate } from "redux-persist/integration/react";
 // import { store, persistor } from "../store"
 import store, { persistor } from "@/store/store";
 
-import { WagmiConfig, createClient, configureChains, chain } from "wagmi";
-import { publicProvider } from "wagmi/providers/public";
+// import { WagmiConfig, createClient, configureChains, chain } from "wagmi";
+// import { publicProvider } from "wagmi/providers/public";
 
 import Layout from "@/components/Layouts/Layout";
 
-const { provider, webSocketProvider } = configureChains(
-  [chain.polygon],
-  [publicProvider()],
-);
+import { WagmiConfig, createClient } from "wagmi";
+import { getDefaultProvider } from "ethers";
 
 const client = createClient({
   autoConnect: true,
-  provider,
-  webSocketProvider,
+  provider: getDefaultProvider(),
 });
+
+// const { provider, webSocketProvider } = configureChains(
+//   [chain.polygon],
+//   [publicProvider()],
+// );
+
+// const client = createClient({
+//   autoConnect: true,
+//   provider,
+//   webSocketProvider,
+// });
 
 export type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactNode;
