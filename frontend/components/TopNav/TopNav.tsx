@@ -6,15 +6,13 @@ import ThemeToggle from "./ThemeToggle";
 
 const TopNav: React.FC = () => {
   return (
-    <div className="flex flex-row items-center justify-evenly bg-grey-300 dark:bg-gray-700 bg-opacity-90 w-full h-16 m-0 shadow-lg">
+    <div className="top-navigation">
       {/* channel title anchored to left side of top nav */}
-      <div className="text-lg text-gray-500 tracking-wider font-semibold text-opacity-80 mr-auto ml-2 my-auto transition duration-300 ease-in-out">
-        <FaHashtag className="text-lg tracking-wider font-semibold text-gray-500 ml-2 my-auto" />
-        channel name here
-        <ThemeToggle />
-        <SearchBar />
-        <ConnectButton />
-      </div>
+      <FaHashtag className="title-hashtag" />
+      <h5 className="title-text">channel name here</h5>
+      <ThemeToggle />
+      <SearchBar />
+      <ConnectButton />
     </div>
   );
 };
