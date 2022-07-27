@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import supabase from "@/utils/supabase";
+import truncateAddress from "@/utils/truncateAddress";
 
 const MainChatArea: React.FC = () => {
   const [messages, setMessages] = useState([]);
@@ -74,13 +75,13 @@ const Message: React.FC<Message> = ({ id, address, created_at, message }) => {
           alt=""
           className="avatar"
         />
-        <span>{address ?? "no address"}</span>
+        <span>{truncateAddress(address) ?? "no address"}</span>
       </div>
 
       <div className="post-content">
         <p className="post-owner">
           {address ?? "no address"}
-          <small className="created_at">{created_at}</small>
+          <small className="created_at">{" at: " + created_at}</small>
         </p>
         <p className="post-text">{message}</p>
       </div>
