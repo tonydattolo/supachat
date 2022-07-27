@@ -12,7 +12,11 @@ import { useEffect, useRef, useState } from "react";
 import Jazzicon from "@metamask/jazzicon";
 import { FcCancel } from "react-icons/fc";
 import Cookies from "js-cookie";
+import { getCookie, setCookie, deleteCookie } from "cookies-next";
 import { FaLock, FaLockOpen } from "react-icons/fa";
+import { FiUser, FiUserCheck, FiUserX } from "react-icons/fi";
+import { RiDeleteBin5Fill } from "react-icons/ri";
+import supabase from "@/utils/supabase";
 
 const ConnectButton: React.FC = () => {
   const { address, isConnected } = useAccount();
@@ -27,6 +31,8 @@ const ConnectButton: React.FC = () => {
     data: signMessageData,
   } = useSignMessage();
 
+  const [connectedToSupabase, setConnectedToSupabase] = useState("notchecked");
+
   const acctIconRef = useRef<HTMLInputElement>();
   useEffect(() => {
     if (address && acctIconRef.current) {
@@ -36,6 +42,38 @@ const ConnectButton: React.FC = () => {
       );
     }
   }, [address]);
+
+  const handleDisconnect = () => {
+    // deleteCookie("supabaseToken", { path: "/" });
+    const { error } = supabase.auth.signOut();
+    if (error) {
+      console.error("error signing out", JSON.stringify(error, null, 2));
+    }
+    httpOnlyDeleteCookie();
+    disconnect();
+  };
+
+  const handleTestUserConnected = async () => {
+    const { data } = await supabase.from("users").select("*");
+    console.log(`data from test user connection: ${JSON.stringify(data)}`);
+    if (data.length > 0) {
+      setConnectedToSupabase("connected");
+    } else {
+      setConnectedToSupabase("notconnected");
+    }
+  };
+
+  const httpOnlyDeleteCookie = async () => {
+    // const res = await fetch("/api/auth/deleteJwt", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    // });
+    // const data = await res.json();
+    // console.log("data from delete cookie call", JSON.stringify(data));
+    deleteCookie("supabaseToken", { path: "/" });
+  };
 
   // check if the JWT cookie is set
   const [nonce, setNonce] = useState("");
@@ -58,10 +96,6 @@ const ConnectButton: React.FC = () => {
 
     // have user sign the nonce
     const signature = signMessage({ message: nonce });
-
-    // console.log("signedMessageData: ", signature);
-
-    // send the signature to the server for verification
   };
 
   const handleVerifyNonce = async () => {
@@ -77,9 +111,19 @@ const ConnectButton: React.FC = () => {
       },
     });
 
-    const { user, token } = await res2.json();
+    const { user } = await res2.json();
     console.log("user: ", user);
-    console.log("token: ", token);
+    // console.log("token: ", token);
+
+    console.log(
+      "client side cookie read: ",
+      getCookie("supabaseToken", { path: "/" }),
+    );
+
+    const access_token = getCookie("supabaseToken", { path: "/" }).toString();
+
+    // set authentication token in supabase for this user
+    await supabase.auth.setAuth(access_token);
   };
 
   useEffect(() => {
@@ -90,11 +134,14 @@ const ConnectButton: React.FC = () => {
 
   useEffect(() => {
     if (address && isConnected) {
-      if (Cookies.get("mytoken")) {
-        console.log("JWT cookie is set");
-      } else {
+      if (
+        Cookies.get("supabaseToken") === "undefined" ||
+        Cookies.get("supabaseToken") === undefined
+      ) {
         console.log("JWT cookie is not set");
         handleGrabNonce();
+      } else {
+        console.log("JWT cookie is set, ", getCookie("supabaseToken"));
       }
     }
   }, [address, isConnected]);
@@ -123,18 +170,40 @@ const ConnectButton: React.FC = () => {
         </button>
       )}
 
-      <div className="flex items-center mr-3 rounded-md shadow-md bg-gray-400 dark:bg-gray-600 text-gray-500 px-2 h-9 transition duration-300 ease-in-out">
-        {address && isConnected && signMessageError ? (
-          <FaLock
-            size="24"
-            className="topnav-icon text-red-500 hover:text-blue-500"
-            onClick={() => handleGrabNonce()}
-          />
+      <div className="flex items-center mr-3 rounded-md shadow-md bg-gray-400 dark:bg-gray-600 text-gray-500 hover:text-grey-700 px-2 h-9 transition duration-300 ease-in-out">
+        <span
+          className="flex text-red-500 hover:text-red-700"
+          onClick={() => deleteCookie("supabaseToken", { path: "/" })}
+        >
+          <RiDeleteBin5Fill size="24" />
+          del cookie
+        </span>
+      </div>
+      <div className="flex items-center mr-3 rounded-md shadow-md bg-gray-400 dark:bg-gray-600 text-gray-500 hover:text-grey-700 px-2 h-9 transition duration-300 ease-in-out">
+        {connectedToSupabase === "notchecked" ? (
+          <span
+            className="flex text-blue-500 hover:text-blue-700"
+            onClick={() => handleTestUserConnected()}
+          >
+            <FiUser size="24" />
+            check supa
+          </span>
+        ) : connectedToSupabase === "connected" ? (
+          <span
+            className="flex text-green-500 hover:text-green-700"
+            onClick={() => handleTestUserConnected()}
+          >
+            <FiUserCheck size="24" />
+            check supa
+          </span>
         ) : (
-          <FaLockOpen
-            size="24"
-            className="topnav-icon text-green-500 hover:text-red-600"
-          />
+          <span
+            className="flex text-red-500 hover:text-red-700"
+            onClick={() => handleTestUserConnected()}
+          >
+            <FiUserX size="24" />
+            check supa
+          </span>
         )}
       </div>
     </>

@@ -40,14 +40,22 @@ export default async function handler(
         id: user.id,
       },
     },
-    process.env.NEXT_PUBLIC_SUPABASE_JWT_SECRET,
+    process.env.SUPABASE_JWT_SECRET,
   );
 
   if (error) {
     res.status(500).json({ error: error.message });
     return;
   } else {
-    res.status(200).json({ user, token });
+    res.setHeader("Set-Cookie", [
+      `supabaseToken=${token}; Path=/; Expires=${new Date(
+        Date.now() + 60 * 60 * 24 * 7 * 52,
+        // ).toUTCString()}; Secure; HttpOnly, SameSite=None`,
+      ).toUTCString()};`,
+    ]);
+    res
+      .status(200)
+      .json({ user, message: "token set successfully serverside" });
   }
 
   // } catch (error) {

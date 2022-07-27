@@ -1,7 +1,7 @@
 /* eslint-disable prefer-const */
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
-import supabase from "@/utils/supabase";
+import supabaseServer from "@/utils/supabaseServer";
 import { v4 as uuidv4 } from "uuid";
 
 // POST api/auth/nonce
@@ -25,7 +25,7 @@ const nonceApi = async (req: NextApiRequest, res: NextApiResponse) => {
   const { address } = req.body;
   const nonce = uuidv4();
 
-  let { data, error } = await supabase
+  let { data, error } = await supabaseServer
     .from("users")
     .select("nonce")
     .eq("address", address);
@@ -35,13 +35,13 @@ const nonceApi = async (req: NextApiRequest, res: NextApiResponse) => {
 
   if (data.length > 0) {
     // if it does, update the nonce
-    let { data, error } = await supabase
+    let { data, error } = await supabaseServer
       .from("users")
       .update({ nonce })
       .eq("address", address);
     // .eq("address", address)
   } else {
-    let { data, error } = await supabase.from("users").insert({
+    let { data, error } = await supabaseServer.from("users").insert({
       address,
       nonce,
     });

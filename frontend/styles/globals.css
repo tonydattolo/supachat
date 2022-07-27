@@ -159,12 +159,12 @@
 
   .channel-bar {
     @apply w-80 h-auto m-0 ml-16 bg-gray-200 dark:bg-gray-800
-     overflow-hidden;
+     overflow-hidden overscroll-contain;
   }
 
   .channel-container {
-    @apply flex flex-col items-center justify-start 
-    p-1 m-0;
+    @apply fixed flex flex-col items-center justify-start 
+    p-1 m-0 overflow-clip;
   }
 
   .channel-block {
