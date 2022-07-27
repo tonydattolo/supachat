@@ -31,17 +31,21 @@ export default async function handler(
 
   console.log("user in verifyNonce", user);
 
-  const token = jwt.sign(
-    {
-      aud: "authenticated",
-      exp: Math.floor(Date.now() / 1000 + 60 * 60 * 24 * 7 * 52),
-      sub: user.id,
-      user_metadata: {
-        id: user.id,
+  try {
+    const token = jwt.sign(
+      {
+        aud: "authenticated",
+        exp: Math.floor(Date.now() / 1000 + 60 * 60 * 24 * 7 * 52),
+        sub: user.id,
+        user_metadata: {
+          id: user.id,
+        },
       },
-    },
-    process.env.SUPABASE_JWT_SECRET,
-  );
+      process.env.SUPABASE_JWT_SECRET,
+    );
+  } catch (error) {
+    throw new Error(error);
+  }
 
   if (error) {
     res.status(500).json({ error: error.message });

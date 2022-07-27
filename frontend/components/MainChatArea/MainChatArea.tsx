@@ -1,80 +1,88 @@
+import { useState, useEffect } from "react";
+import supabase from "@/utils/supabase";
+
 const MainChatArea: React.FC = () => {
+  const [messages, setMessages] = useState([]);
+
+  const handleGrabMessages = async () => {
+    const { data, error } = await supabase
+      .from("messages")
+      .select("*")
+      .order("created_at");
+
+    console.log("data from messages: ", JSON.stringify(data));
+    if (error) {
+      console.error(error);
+    }
+    setMessages(data);
+  };
+
+  useEffect(() => {
+    handleGrabMessages();
+  }, []);
+
   return (
     <div className="content-list">
-      <Post
-        name="Ada"
-        timestamp="one week ago"
-        text={`Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum dolor sit
+      <Message
+        id={1666}
+        address="Ada"
+        created_at="one week ago"
+        message={`Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum dolor sit
           amet consectetur adipisicing elit. Lorem ipsum dolor sit amet consectetur
           adipisicing elit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem
           ipsum dolor sit amet consectetur adipisicing elit.`}
       />
-      <Post name="Leon" timestamp="one week ago" text={`Lorem ipsum dolor. `} />
-      <Post name="Jill" timestamp="5 days ago" text={`Lorem.`} />
-      <Post
-        name="Ellie"
-        timestamp="4 days ago"
-        text={`Lorem ipsum dolor sit amet consectetur adipisicing elit. `}
+      <Message
+        id={1667}
+        address="Ada"
+        created_at="one week ago"
+        message={`Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum dolor sit
+            amet consectetur adipisicing elit. Lorem ipsum dolor sit amet consectetur
+            adipisicing elit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem
+            ipsum dolor sit amet consectetur adipisicing elit.`}
       />
-      <Post
-        name="Chris"
-        timestamp="4 days ago"
-        text={`Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum dolor sit
-          amet consectetur adipisicing elit. Lorem ipsum dolor sit amet consectetur
-          adipisicing elit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem
-          ipsum dolor sit amet consectetur adipisicing elit.
-          
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem
-          ipsum dolor sit amet consectetur adipisicing elit.`}
-      />
-      <Post
-        name="Claire"
-        timestamp="2 days ago"
-        text={`Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum dolor sit
-          amet consectetur adipisicing elit. Lorem ipsum dolor sit amet consectetur
-          adipisicing elit. Lorem ipsum dolor sit amet consectetur adipisicing elit. `}
-      />
-      <Post
-        name="Albert"
-        timestamp="22 hours ago"
-        text={`Lorem ipsum dolor sit amet consectetur adipisicing elit. ☺️ `}
-      />
-      <Post
-        name="Rebecca"
-        timestamp="3 hours ago"
-        text={`Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum dolor sit
-          amet consectetur adipisicing elit.`}
-      />
-      <Post
-        name="H.U.N.K"
-        timestamp="Just now"
-        text={`Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum dolor sit
-          amet consectetur adipisicing elit. Lorem ipsum dolor sit amet consectetur
-          adipisicing elit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem
-          ipsum dolor sit amet consectetur adipisicing elit.`}
-      />
+
+      <>
+        {messages.map((message: Message) => (
+          <Message
+            key={message.id}
+            address={message.address}
+            created_at={message.created_at}
+            message={message.message}
+          />
+        ))}
+      </>
     </div>
   );
 };
 
-const Post = ({ name, timestamp, text }) => {
+type Message = {
+  key?: number;
+  id?: number;
+  address: string;
+  created_at: string;
+  message: string;
+};
+
+const Message: React.FC<Message> = ({ id, address, created_at, message }) => {
   const seed = Math.round(Math.random() * 100);
   return (
-    <div className={"post"}>
+    <div key={id} className="post">
       <div className="avatar-wrapper">
         <img
           src={`https://avatars.dicebear.com/api/open-peeps/${seed}.svg`}
           alt=""
           className="avatar"
         />
+        <span>{address ?? "no address"}</span>
       </div>
 
       <div className="post-content">
         <p className="post-owner">
-          {name}
-          <small className="timestamp">{timestamp}</small>
+          {address ?? "no address"}
+          <small className="created_at">{created_at}</small>
         </p>
-        <p className="post-text">{text}</p>
+        <p className="post-text">{message}</p>
       </div>
     </div>
   );
