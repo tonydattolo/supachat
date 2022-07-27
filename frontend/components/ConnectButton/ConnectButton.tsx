@@ -43,9 +43,9 @@ const ConnectButton: React.FC = () => {
     }
   }, [address]);
 
-  const handleDisconnect = () => {
+  const handleDisconnect = async () => {
     // deleteCookie("supabaseToken", { path: "/" });
-    const { error } = supabase.auth.signOut();
+    const { error } = await supabase.auth.signOut();
     if (error) {
       console.error("error signing out", JSON.stringify(error, null, 2));
     }
