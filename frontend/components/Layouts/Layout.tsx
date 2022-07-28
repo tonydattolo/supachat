@@ -6,6 +6,12 @@ import { FaFire, FaPoo, FaYoutube, FaAlipay } from "react-icons/fa";
 import Channel from "@/types/Channel";
 
 import ChannelSidebar from "@/components/ChannelSidebar/ChannelSidebar";
+import TopNav from "@/components/TopNav/TopNav";
+import TopNav2 from "@/components/TopNav/TopNav2";
+import MainChatArea from "../MainChatArea/MainChatArea";
+import BottomTextInput from "../BottomTextInput/BottomTextInput";
+import SidebarTest from "../SidebarTest/SidebarTest";
+import SubchannelSidebar2 from "../ChannelSidebar/SubchannelSidebar2";
 
 interface Props {
   children: React.ReactNode;
@@ -44,38 +50,16 @@ export const Layout: React.FC<PropsWithChildren<Props>> = ({
         <title>LAYOUT</title>
       </Head>
 
-      {/* <div className="w-full flex flex-col sm:flex-row flex-wrap sm:flex-nowrap py-4 flex-grow">
-        <div className="w-fixed w-full flex-shrink flex-grow-0 px-4">
-            <div className="sticky top-0 p-4 w-full h-full">
-                <ul>
-                    <li>
-                        <a href="#">Home</a>  
-                    </li>
-                    <li>
-                        <a href="#">About</a>
-                    </li>
-                </ul>
-            </div>
-        </div> */}
-
-      <ChannelSidebar channels={exampleChannels} />
-
-      <main role="main" className="w-full flex-grow pt-1 px-3">
-        {/* <!-- fluid-width: main content goes here --> */}
-        {children}
-      </main>
-      <div className="w-fixed w-full flex-shrink flex-grow-0 px-2">
-        {/* <!-- fixed-width --> */}
-        <div className="flex sm:flex-col px-2">
-          {/* <!-- sidebar goes here --> */}
-          <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-            <a href="#">Button</a>
-          </button>
+      <div className="flex">
+        <SidebarTest />
+        <SubchannelSidebar2 />
+        <div className="flex flex-col bg-gray-300 dark:bg-gray-700 m-0 h-full w-full overflow-hidden">
+          {/* <TopNav /> */}
+          <TopNav />
+          <MainChatArea />
+          <BottomTextInput />
         </div>
       </div>
-      {/* </div> */}
-
-      {/* <main>{children}</main> */}
     </>
   );
 };

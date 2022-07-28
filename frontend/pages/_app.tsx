@@ -15,7 +15,7 @@ import { publicProvider } from "wagmi/providers/public";
 import Layout from "@/components/Layouts/Layout";
 
 const { provider, webSocketProvider } = configureChains(
-  [chain.polygon],
+  [chain.mainnet, chain.polygon, chain.polygonMumbai, chain.rinkeby],
   [publicProvider()],
 );
 
@@ -51,7 +51,6 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
               </Layout>
             </>
           )}
-          {/* {getLayout(<Component {...pageProps} />)} */}
         </WagmiConfig>
       </PersistGate>
     </RTKProvider>

@@ -5,6 +5,7 @@ module.exports = {
   content: [
     "./pages/**/*.{js,ts,jsx,tsx}",
     "./components/**/*.{js,ts,jsx,tsx}",
+    "./public/index.html",
   ],
   darkMode: "class",
   theme: {
@@ -23,6 +24,9 @@ module.exports = {
           200: "#ebedef",
           100: "#f2f3f5",
         },
+      },
+      spacing: {
+        88: "22rem",
       },
     },
   },
