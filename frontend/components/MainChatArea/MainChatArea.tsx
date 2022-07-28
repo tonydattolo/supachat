@@ -84,8 +84,8 @@ const MainChatArea: React.FC = () => {
 // };
 
 const Message: React.FC<Message> = ({ id, address, created_at, message }) => {
-  // const seed = Math.round(Math.random() * 100);
-  const seed = Math.round(address);
+  const seed = Math.round(Math.random() * 100);
+  // const seed = Math.round(address);
   return (
     <div
       key={id}
