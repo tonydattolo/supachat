@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import supabase from "@/utils/supabase";
 import truncateAddress from "@/utils/truncateAddress";
 import Message from "@/types/Message";
@@ -6,6 +6,8 @@ import { SupabaseRealtimePayload } from "@supabase/supabase-js";
 
 const MainChatArea: React.FC = () => {
   const [messages, setMessages] = useState([]);
+
+  const bottomRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const subscription = supabase
@@ -46,15 +48,18 @@ const MainChatArea: React.FC = () => {
   };
 
   window.scrollTo(0, document.body.scrollHeight);
+
   useEffect(() => {
-    document
-      .getElementById("SCROLLER")
-      .scrollTo(0, document.getElementById("SCROLLER").scrollHeight);
-  }, []);
-  useEffect(() => {
-    document
-      .getElementById("SCROLLER")
-      .scrollTo(0, document.getElementById("SCROLLER").scrollHeight);
+    // window.addEventListener(
+    //   "scroll",
+    //   () => {
+    //     if (bottomRef.current) {
+    //       bottomRef.current.scrollIntoView({ behavior: "smooth" });
+    //     }
+    //   },
+    //   { passive: true },
+    // );
+    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
   return (
@@ -81,6 +86,7 @@ const MainChatArea: React.FC = () => {
           />
         ))}
       </>
+      <div ref={bottomRef}></div>
     </div>
   );
 };
