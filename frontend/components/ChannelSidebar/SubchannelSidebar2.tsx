@@ -9,8 +9,7 @@ const random = ["variants", "plugins"];
 const SubchannelSidebar2 = () => {
   return (
     <div className="channel-bar shadow-lg">
-      <ChannelBlock />
-      <div className="channel-container">
+      <div className="channel-container mt-4">
         <Dropdown header="Topics" selections={topics} />
         <Dropdown header="Questions" selections={questions} />
         <Dropdown header="Random" selections={random} />
@@ -63,7 +62,7 @@ const TopicSelection = ({ selection }) => (
 );
 
 const ChannelBlock = () => (
-  <div className="channel-block">
+  <div className="channel-block fixed mb-16">
     <h5 className="channel-block-text">Channels</h5>
   </div>
 );

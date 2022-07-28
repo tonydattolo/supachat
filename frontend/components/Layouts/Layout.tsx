@@ -47,12 +47,12 @@ export const Layout: React.FC<PropsWithChildren<Props>> = ({
   return (
     <>
       <Head>
-        <title>LAYOUT</title>
+        <title>supachat</title>
       </Head>
 
       <div className="flex">
-        <SidebarTest />
-        <SubchannelSidebar2 />
+        {/* <SidebarTest />
+        <SubchannelSidebar2 /> */}
         <div className="flex flex-col bg-gray-300 dark:bg-gray-700 m-0 h-full w-full overflow-hidden">
           {/* <TopNav /> */}
           <TopNav />

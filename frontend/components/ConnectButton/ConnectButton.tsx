@@ -162,7 +162,7 @@ const ConnectButton: React.FC = () => {
         </>
       ) : (
         <button
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold mx-3 px-2 h-9 rounded-md shadow-md transition duration-300 ease-in-out"
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold mx-3 px-2 h-9 rounded-md shadow-md transition duration-300 ease-in-out cursor-pointer"
           onClick={async () => connect()}
           // disabled={isConnected}
         >
