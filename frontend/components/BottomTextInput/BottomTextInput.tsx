@@ -23,6 +23,9 @@ const BottomTextInput: React.FC = () => {
       console.error("error inserting new message", error);
     } else {
       console.log("message inserted");
+      document
+        .getElementById("SCROLLER")
+        .scrollTo(0, document.getElementById("SCROLLER").scrollHeight);
     }
 
     setMessage("");

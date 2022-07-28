@@ -46,6 +46,16 @@ const MainChatArea: React.FC = () => {
   };
 
   window.scrollTo(0, document.body.scrollHeight);
+  useEffect(() => {
+    document
+      .getElementById("SCROLLER")
+      .scrollTo(0, document.getElementById("SCROLLER").scrollHeight);
+  }, []);
+  useEffect(() => {
+    document
+      .getElementById("SCROLLER")
+      .scrollTo(0, document.getElementById("SCROLLER").scrollHeight);
+  }, [messages]);
 
   return (
     <div
@@ -94,6 +104,7 @@ const Message: React.FC<Message> = ({ id, address, created_at, message }) => {
         flex flex-row items-center justify-evenly
         py-4 px-8 m-0
       "
+      id="SCROLLER"
     >
       <div className="avatar-wrapper">
         <img
