@@ -1,12 +1,9 @@
-type SupachatMessage = {
-  id: string;
+type Message = {
+  id?: number;
+  address: string;
   message: string;
   created_at: Date;
-  user: {
-    id: string;
-    name: string;
-    avatar: string;
-  };
+  key?: string | number;
 };
 
-export default SupachatMessage;
+export default Message;
