@@ -7,7 +7,6 @@ import Channel from "@/types/Channel";
 
 import ChannelSidebar from "@/components/ChannelSidebar/ChannelSidebar";
 import TopNav from "@/components/TopNav/TopNav";
-import TopNav2 from "@/components/TopNav/TopNav2";
 import MainChatArea from "../MainChatArea/MainChatArea";
 import BottomTextInput from "../BottomTextInput/BottomTextInput";
 import SidebarTest from "../SidebarTest/SidebarTest";
@@ -54,7 +53,6 @@ export const Layout: React.FC<PropsWithChildren<Props>> = ({
         {/* <SidebarTest />
         <SubchannelSidebar2 /> */}
         <div className="flex flex-col bg-gray-300 dark:bg-gray-700 m-0 h-full w-full overflow-hidden">
-          {/* <TopNav /> */}
           <TopNav />
           <MainChatArea />
           <BottomTextInput />
