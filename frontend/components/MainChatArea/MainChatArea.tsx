@@ -43,29 +43,14 @@ const MainChatArea: React.FC = () => {
 
   useEffect(() => {
     handleGrabMessages();
-    setTimeout(() => {}, 3000);
-    handleScrollToBottomOfChat();
   }, []);
 
   const handleScrollToBottomOfChat = () => {
-    bottomRef.current.scrollTo({
-      top: bottomRef.current.scrollHeight,
-      behavior: "smooth",
-    });
+    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
   useEffect(() => {
     handleScrollToBottomOfChat();
-
-    bottomRef.current.addEventListener("scroll", () => {
-      if (window.scrollY > 0) {
-        setScrolledPostLoad(true);
-        console.log("scrolled");
-      } else {
-        setScrolledPostLoad(false);
-        handleScrollToBottomOfChat();
-      }
-    });
   }, [messages]);
 
   return (
@@ -74,6 +59,7 @@ const MainChatArea: React.FC = () => {
         my-16 ml-0 px-0 pb-0 w-full bottom-16
         overflow-y-auto
         "
+      id="SCROLLER"
     >
       <>
         {messages.map((message: Message) => (
@@ -100,13 +86,12 @@ const Message: React.FC<Message> = ({ id, address, created_at, message }) => {
         flex flex-row items-center justify-evenly
         py-4 px-8 m-0
       "
-      id="SCROLLER"
     >
       <div className="avatar-wrapper">
         <img
           src={`https://avatars.dicebear.com/api/open-peeps/${seed}.svg`}
           alt=""
-          className="avatar"
+          className="flex-none w-12 h-full rounded-full shadow-md object-cover bg-gray-100 mb-auto mt-0 mx-0"
         />
         <span className="text-cyan-700 dark:text-cyan-500 ">
           {truncateAddress(address) ?? "no address"}
@@ -114,10 +99,10 @@ const Message: React.FC<Message> = ({ id, address, created_at, message }) => {
       </div>
 
       <div className="w-4/5 flex flex-col justify-start ml-auto">
-        <p className="text-left font-semibold mr-2 cursor-pointer text-cyan-700 dark:text-cyan-500">
+        <p className="text-left font-semibold mr-2 text-cyan-700 dark:text-cyan-500">
           {address ?? "no address"}
-          <small className="created_at">
-            {" at: " + dateFormatter(created_at)}
+          <small className="created_at italic ml-4 font-thin">
+            {dateFormatter(created_at)}
           </small>
         </p>
         <p

@@ -4,7 +4,10 @@ type AlertProps = {
   onClose?: () => void;
 };
 
-const Alert: React.FC<AlertProps> = ({ message, type }: AlertProps) => {
+const Alert: React.FC<AlertProps> = ({
+  message,
+  type = "info",
+}: AlertProps) => {
   const infoColor = "blue";
   const successColor = "green";
   const errorColor = "red";
