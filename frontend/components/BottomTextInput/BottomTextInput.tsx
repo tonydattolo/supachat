@@ -2,10 +2,12 @@ import { AiFillPlusCircle } from "react-icons/ai";
 import supabase from "@/utils/supabase";
 import { useState } from "react";
 import { useAccount } from "wagmi";
+import Message from "@/types/Message";
 
 const BottomTextInput: React.FC = () => {
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState<string>("");
   const { address } = useAccount();
+  const [inValidMessage, setInValidMessage] = useState(false);
 
   const handleSendMessage = async () => {
     // check if message is empty

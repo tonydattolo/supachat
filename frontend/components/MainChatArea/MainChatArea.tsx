@@ -3,19 +3,23 @@ import supabase from "@/utils/supabase";
 import truncateAddress from "@/utils/truncateAddress";
 import Message from "@/types/Message";
 import { SupabaseRealtimePayload } from "@supabase/supabase-js";
+import generateAvatarSeedFromHexAddress from "@/utils/generateAvatarSeedFromHexAddress";
 
 const MainChatArea: React.FC = () => {
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [scrolledPostLoad, setScrolledPostLoad] = useState(false);
 
   const bottomRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const subscription = supabase
-      .from("messages")
-      // .on("INSERT", (payload: SupabaseRealtimePayload<Message>) => {
-      .on("INSERT", (payload) => {
+      .from<Message>("messages")
+      .on("INSERT", (payload: SupabaseRealtimePayload<Message>) => {
         console.log("payload: ", payload);
-        setMessages((currMessages) => [...currMessages, payload.new]);
+        setMessages((currMessages): Message[] => [
+          ...currMessages,
+          payload.new,
+        ]);
       })
       .subscribe();
 
@@ -26,11 +30,10 @@ const MainChatArea: React.FC = () => {
 
   const handleGrabMessages = async () => {
     const { data, error } = await supabase
-      .from("messages")
+      .from<Message>("messages")
       .select("*")
       .order("created_at", { ascending: true });
 
-    // console.log("data from messages: ", JSON.stringify(data));
     if (error) {
       console.error(error);
     }
@@ -39,27 +42,29 @@ const MainChatArea: React.FC = () => {
 
   useEffect(() => {
     handleGrabMessages();
-    setTimeout(() => {}, 1000);
+    setTimeout(() => {}, 3000);
+    handleScrollToBottomOfChat();
   }, []);
 
-  const handleMessageInserted = (payload: SupabaseRealtimePayload<Message>) => {
-    console.log("handleMessageInserted: ", payload);
-    // setMessages([...messages, payload.data]);
+  const handleScrollToBottomOfChat = () => {
+    bottomRef.current.scrollTo({
+      top: bottomRef.current.scrollHeight,
+      behavior: "smooth",
+    });
   };
 
-  window.scrollTo(0, document.body.scrollHeight);
-
   useEffect(() => {
-    // window.addEventListener(
-    //   "scroll",
-    //   () => {
-    //     if (bottomRef.current) {
-    //       bottomRef.current.scrollIntoView({ behavior: "smooth" });
-    //     }
-    //   },
-    //   { passive: true },
-    // );
-    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+    handleScrollToBottomOfChat();
+
+    bottomRef.current.addEventListener("scroll", () => {
+      if (window.scrollY > 0) {
+        setScrolledPostLoad(true);
+        console.log("scrolled");
+      } else {
+        setScrolledPostLoad(false);
+        handleScrollToBottomOfChat();
+      }
+    });
   }, [messages]);
 
   return (
@@ -68,13 +73,6 @@ const MainChatArea: React.FC = () => {
         my-16 ml-0 px-0 pb-0 w-full bottom-16
         overflow-y-auto
         "
-      // className="flex flex-1 flex-col items-center
-      //   h-screen w-full
-      //   mt-0 ml-0 mx-auto px-0 pb-12
-      //   overflow-y-scroll
-      //   overflow-x-hidden
-      //   scroll-snap-type: x mandatory;
-      //   "
     >
       <>
         {messages.map((message: Message) => (
@@ -91,17 +89,8 @@ const MainChatArea: React.FC = () => {
   );
 };
 
-// type Message = {
-//   key?: number;
-//   id?: number;
-//   address: string;
-//   created_at: string;
-//   message: string;
-// };
-
 const Message: React.FC<Message> = ({ id, address, created_at, message }) => {
-  const seed = Math.round(Math.random() * 100);
-  // const seed = Math.round(address);
+  const seed = generateAvatarSeedFromHexAddress(address);
   return (
     <div
       key={id}
@@ -118,7 +107,9 @@ const Message: React.FC<Message> = ({ id, address, created_at, message }) => {
           alt=""
           className="avatar"
         />
-        <span>{truncateAddress(address) ?? "no address"}</span>
+        <span className="text-cyan-500">
+          {truncateAddress(address) ?? "no address"}
+        </span>
       </div>
 
       <div className="w-4/5 flex flex-col justify-start ml-auto">

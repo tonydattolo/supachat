@@ -21,7 +21,7 @@ import supabase from "@/utils/supabase";
 const ConnectButton: React.FC = () => {
   const { address, isConnected } = useAccount();
   const { data: ensName } = useEnsName({ address });
-  const { connect } = useConnect({
+  const { connect, isLoading: connectWalletIsLoading } = useConnect({
     connector: new MetaMaskConnector(),
   });
   const { disconnect } = useDisconnect();
@@ -164,7 +164,7 @@ const ConnectButton: React.FC = () => {
         <button
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold mx-3 px-2 h-9 rounded-md shadow-md transition duration-300 ease-in-out cursor-pointer"
           onClick={async () => connect()}
-          // disabled={isConnected}
+          disabled={isConnected || connectWalletIsLoading}
         >
           Connect Wallet
         </button>
@@ -172,7 +172,7 @@ const ConnectButton: React.FC = () => {
 
       <div className="flex items-center mr-3 rounded-md shadow-md bg-gray-400 dark:bg-gray-600 text-gray-500 hover:text-grey-700 px-2 h-9 transition duration-300 ease-in-out">
         <span
-          className="flex text-red-500 hover:text-red-700"
+          className="flex text-red-500 hover:text-red-700 cursor-pointer"
           onClick={() => deleteCookie("supabaseToken", { path: "/" })}
         >
           <RiDeleteBin5Fill size="24" />
@@ -182,7 +182,7 @@ const ConnectButton: React.FC = () => {
       <div className="flex items-center mr-3 rounded-md shadow-md bg-gray-400 dark:bg-gray-600 text-gray-500 hover:text-grey-700 px-2 h-9 transition duration-300 ease-in-out">
         {connectedToSupabase === "notchecked" ? (
           <span
-            className="flex text-blue-500 hover:text-blue-700"
+            className="flex text-blue-500 hover:text-blue-700 cursor-pointer"
             onClick={() => handleTestUserConnected()}
           >
             <FiUser size="24" />
@@ -190,7 +190,7 @@ const ConnectButton: React.FC = () => {
           </span>
         ) : connectedToSupabase === "connected" ? (
           <span
-            className="flex text-green-500 hover:text-green-700"
+            className="flex text-green-500 hover:text-green-700 cursor-pointer"
             onClick={() => handleTestUserConnected()}
           >
             <FiUserCheck size="24" />
@@ -198,7 +198,7 @@ const ConnectButton: React.FC = () => {
           </span>
         ) : (
           <span
-            className="flex text-red-500 hover:text-red-700"
+            className="flex text-red-500 hover:text-red-700 cursor-pointer"
             onClick={() => handleTestUserConnected()}
           >
             <FiUserX size="24" />
