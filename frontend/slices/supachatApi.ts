@@ -14,7 +14,7 @@ export const supachatApi = createApi({
           .select("*")
           // .select("*, author:user_id(username)")
           .order("created_at")
-          .limit(10);
+          .limit(100);
 
         return {
           data: messages,

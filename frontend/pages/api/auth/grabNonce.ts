@@ -3,6 +3,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import supabaseServer from "@/utils/supabaseServer";
 import { v4 as uuidv4 } from "uuid";
+import User from "@/types/User";
 
 // POST api/auth/nonce
 
@@ -26,33 +27,45 @@ const nonceApi = async (req: NextApiRequest, res: NextApiResponse) => {
   const nonce = uuidv4();
 
   let { data, error } = await supabaseServer
-    .from("users")
+    .from<User>("users")
     .select("nonce")
     .eq("address", address);
 
-  // console.log(`data in nonceApi: ${JSON.stringify(data)}`);
-  // check if this address already exists in the database
+  if (error) {
+    console.log("error grabbing users", error);
+    res.status(500).json({ error });
+  }
 
-  if (data.length > 0) {
+  // check if user already exists. should return [] empty array if not
+  if (data.length >= 0) {
     // if it does, update the nonce
     let { data, error } = await supabaseServer
-      .from("users")
+      .from<User>("users")
       .update({ nonce })
       .eq("address", address);
-    // .eq("address", address)
+
+    if (error) {
+      console.log("error updating nonce for user", error);
+      res.status(500).json({ error });
+    }
   } else {
-    let { data, error } = await supabaseServer.from("users").insert({
+    // insert new user into the supabase database
+    let { data, error } = await supabaseServer.from<User>("users").insert({
       address,
       nonce,
     });
+
+    if (error) {
+      console.log("error inserting new user", error);
+      res.status(500).json({ error });
+    }
   }
 
   if (error) {
-    // console.log(`error in nonceApi: ${error}`);
+    console.log(`error in nonceApi: ${error}`);
     res.status(500).json({ error: error.message });
     return;
   } else {
-    // console.log(`no error in nonceApi`);
     res.status(200).json({ nonce: nonce });
     return;
   }

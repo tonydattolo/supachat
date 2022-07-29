@@ -4,6 +4,7 @@ import truncateAddress from "@/utils/truncateAddress";
 import Message from "@/types/Message";
 import { SupabaseRealtimePayload } from "@supabase/supabase-js";
 import generateAvatarSeedFromHexAddress from "@/utils/generateAvatarSeedFromHexAddress";
+import dateFormatter from "@/utils/dateFormatter";
 
 const MainChatArea: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([]);
@@ -107,15 +108,17 @@ const Message: React.FC<Message> = ({ id, address, created_at, message }) => {
           alt=""
           className="avatar"
         />
-        <span className="text-cyan-500">
+        <span className="text-cyan-700 dark:text-cyan-500 ">
           {truncateAddress(address) ?? "no address"}
         </span>
       </div>
 
       <div className="w-4/5 flex flex-col justify-start ml-auto">
-        <p className="post-owner">
+        <p className="text-left font-semibold mr-2 cursor-pointer text-cyan-700 dark:text-cyan-500">
           {address ?? "no address"}
-          <small className="created_at">{" at: " + created_at}</small>
+          <small className="created_at">
+            {" at: " + dateFormatter(created_at)}
+          </small>
         </p>
         <p
           className="text-lg text-left text-gray-800 dark:text-white 
