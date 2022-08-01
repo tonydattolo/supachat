@@ -31,9 +31,9 @@ export default async function handler(
     {
       aud: "authenticated",
       exp: Math.floor(Date.now() / 1000 + 60 * 60 * 24 * 7 * 52),
-      sub: user.id,
+      sub: user.address,
       user_metadata: {
-        id: user.id,
+        // id: user.id,
         address: user.address,
       },
       role: "authenticated",
