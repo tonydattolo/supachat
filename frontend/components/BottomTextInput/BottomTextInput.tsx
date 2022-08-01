@@ -5,6 +5,7 @@ import { useAccount } from "wagmi";
 import Message from "@/types/Message";
 import validateMessage from "@/utils/validateMessage";
 import Alert from "@/components/Alerts/Alert";
+import { getCookie } from "cookies-next";
 
 const BottomTextInput: React.FC = () => {
   const [message, setMessage] = useState<string>("");
@@ -19,6 +20,12 @@ const BottomTextInput: React.FC = () => {
       setInvalidMessage(true);
       return;
     }
+
+    const jwt = getCookie("supabaseToken", {
+      path: "/",
+    });
+
+    supabase.auth.setAuth(getCookie("supabaseToken", { path: "/" }));
 
     const { error } = await supabase.from("messages").insert({
       address,

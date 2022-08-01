@@ -123,7 +123,7 @@ const ConnectButton: React.FC = () => {
     const access_token = getCookie("supabaseToken", { path: "/" }).toString();
 
     // set authentication token in supabase for this user
-    await supabase.auth.setAuth(access_token);
+    supabase.auth.setAuth(access_token);
   };
 
   useEffect(() => {

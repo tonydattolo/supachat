@@ -25,7 +25,7 @@ export default async function handler(
     .eq("nonce", nonce)
     .single();
 
-  // console.log("user in verifyNonce", user);
+  console.log("user in verifyNonce", user);
 
   const token = jwt.sign(
     {
@@ -34,7 +34,9 @@ export default async function handler(
       sub: user.id,
       user_metadata: {
         id: user.id,
+        address: user.address,
       },
+      role: "authenticated",
     },
     process.env.SUPABASE_JWT_SECRET,
   );
