@@ -21,11 +21,7 @@ const BottomTextInput: React.FC = () => {
       return;
     }
 
-    const jwt = getCookie("supabaseToken", {
-      path: "/",
-    });
-
-    supabase.auth.setAuth(getCookie("supabaseToken", { path: "/" }));
+    // supabase.auth.setAuth(getCookie("supabaseToken", { path: "/" }).toString());
 
     const { error } = await supabase.from("messages").insert({
       address,
