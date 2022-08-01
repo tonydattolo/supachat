@@ -37,6 +37,7 @@ export default async function handler(
         address: user.address,
       },
       role: "authenticated",
+      address: user.address,
     },
     process.env.SUPABASE_JWT_SECRET,
   );
