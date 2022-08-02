@@ -13,7 +13,7 @@
   .sidebar-icon {
     @apply relative flex items-center justify-center 
     h-12 w-12 mt-2 mb-2 mx-auto  
-  bg-gray-400 hover:bg-green-600 dark:bg-gray-800 
+  bg-slate-400 hover:bg-green-600 dark:bg-slate-800 
   text-green-500 hover:text-white
     hover:rounded-xl rounded-3xl
     transition-all duration-300 ease-linear
@@ -22,20 +22,20 @@
 
   .sidebar-tooltip {
     @apply absolute w-auto p-2 m-2 min-w-max left-14 rounded-md shadow-md
-    text-white bg-gray-900 
+    text-white bg-slate-900 
     text-xs font-bold 
     transition-all duration-100 scale-0 origin-left;
   }
 
   .sidebar-hr {
-    @apply bg-gray-200 dark:bg-gray-800 
-    border border-gray-200 dark:border-gray-800 rounded-full
+    @apply bg-slate-200 dark:bg-slate-800 
+    border border-slate-200 dark:border-slate-800 rounded-full
     mx-2;
   }
 
   .top-navigation {
     @apply flex sticky top-0 items-center justify-evenly 
-    bg-gray-300 dark:bg-gray-700 bg-opacity-90 
+    bg-slate-300 dark:bg-slate-700 bg-opacity-90 
     w-full md:w-auto
     h-16 
     m-0 
@@ -43,7 +43,7 @@
   }
 
   .top-navigation-icon {
-    @apply text-gray-500
+    @apply text-slate-500
     mr-3 ml-4
     transition duration-300 ease-in-out 
     hover:text-pink-400 
@@ -55,20 +55,20 @@
   }
 
   .title-hashtag {
-    @apply text-lg tracking-wider font-semibold text-gray-500 
+    @apply text-lg tracking-wider font-semibold text-slate-500 
     ml-2 my-auto;
   }
 
   .title-text {
-    @apply text-xl text-gray-500 tracking-wider font-semibold text-opacity-80 
+    @apply text-xl text-slate-500 tracking-wider font-semibold text-opacity-80 
     mr-auto ml-2 my-auto 
     transition duration-300 ease-in-out;
   }
 
   .search {
     @apply w-24 lg:w-1/5 flex items-center justify-start 
-    bg-gray-400 dark:bg-gray-600
-    text-gray-500
+    bg-slate-400 dark:bg-slate-600
+    text-slate-500
     px-2 h-9 ml-0 mr-0 
     rounded-md shadow-md
     transition duration-300 ease-in-out;
@@ -77,13 +77,13 @@
   .search-input {
     @apply w-full font-sans font-semibold
     bg-transparent outline-none 
-    text-gray-500  placeholder-gray-500
+    text-slate-500  placeholder-slate-500
     pl-1 rounded;
   }
 
   .content-container {
     @apply flex flex-col 
-    bg-gray-300 dark:bg-gray-700
+    bg-slate-300 dark:bg-slate-700
     m-0 
     h-full w-full 
     overflow-hidden;
@@ -104,7 +104,7 @@
   }
 
   .post-selected {
-    @apply bg-green-400 dark:bg-gray-900
+    @apply bg-green-400 dark:bg-slate-900
     shadow-md;
   }
 
@@ -115,12 +115,12 @@
   }
 
   .post-text {
-    @apply text-lg text-left text-gray-800 dark:text-white 
+    @apply text-lg text-left text-slate-800 dark:text-white 
     mr-auto whitespace-normal;
   }
 
   .post-owner {
-    @apply text-left font-semibold text-gray-800 dark:text-white mr-2 cursor-pointer;
+    @apply text-left font-semibold text-slate-800 dark:text-white mr-2 cursor-pointer;
   }
 
   .avatar-wrapper {
@@ -133,20 +133,20 @@
     @apply flex-none
     w-12 h-full 
     rounded-full shadow-md
-    object-cover bg-gray-100 
+    object-cover bg-slate-100 
     mb-auto mt-0 mx-0 
     cursor-pointer;
   }
 
   .timestamp {
-    @apply text-xs text-left font-semibold text-gray-500 dark:text-gray-600 ml-2;
+    @apply text-xs text-left font-semibold text-slate-500 dark:text-slate-600 ml-2;
   }
 
   .bottom-bar {
     @apply flex flex-row items-center justify-between 
     fixed left-88 right-8 bottom-2 
     rounded-lg shadow-lg 
-    bg-gray-400 dark:bg-gray-600 px-2
+    bg-slate-400 dark:bg-slate-600 px-2
     h-12;
   }
 
@@ -154,12 +154,12 @@
     @apply font-semibold w-full
     bg-transparent outline-none 
     ml-0 mr-auto
-    text-gray-500  dark:text-gray-400 placeholder-gray-500
+    text-slate-500  dark:text-slate-400 placeholder-slate-500
     cursor-text;
   }
 
   .channel-bar {
-    @apply w-80 h-auto m-0 ml-16 bg-gray-200 dark:bg-gray-800
+    @apply w-80 h-auto m-0 ml-16 bg-slate-200 dark:bg-slate-800
      overflow-hidden overscroll-contain;
   }
 
@@ -176,7 +176,7 @@
 
   .channel-block-text {
     @apply text-lg tracking-wider font-bold 
-    text-gray-600 dark:text-gray-400 
+    text-slate-600 dark:text-slate-400 
     mr-auto ml-4 my-auto align-middle;
   }
 
@@ -187,12 +187,12 @@
 
   .dropdown-header {
     @apply flex flex-row items-center justify-evenly
-    mx-0 text-gray-500
+    mx-0 text-slate-500
     cursor-pointer;
   }
 
   .dropdown-header-text {
-    @apply text-gray-500  text-opacity-90 
+    @apply text-slate-500  text-opacity-90 
     text-lg font-semibold
     cursor-default;
   }
@@ -209,10 +209,10 @@
   }
 
   .dropdown-selection-text {
-    @apply text-gray-500 font-semibold tracking-wide
+    @apply text-slate-500 font-semibold tracking-wide
     mr-auto 
     transition duration-300 ease-in-out 
-    hover:text-pink-500 dark:hover:text-gray-500
+    hover:text-pink-500 dark:hover:text-slate-500
     cursor-pointer;
   }
 }
@@ -224,5 +224,5 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-gray-500 dark:bg-green-400;
+  @apply bg-slate-500 dark:bg-green-400;
 }

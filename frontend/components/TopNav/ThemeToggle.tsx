@@ -6,7 +6,7 @@ const ThemeToggle: React.FC = () => {
   const handleMode = () => setDarkTheme(!darkTheme);
 
   return (
-    <div className="flex items-center bg-gray-400 dark:bg-gray-600 px-2 h-9 mr-3 rounded-md shadow-md transition duration-300 ease-in-out cursor-pointer">
+    <div className="flex items-center bg-slate-400 dark:bg-slate-600 px-2 h-9 mr-3 rounded-md shadow-md transition duration-300 ease-in-out cursor-pointer">
       <span onClick={handleMode}>
         {darkTheme ? (
           <FaSun

@@ -142,7 +142,7 @@ const ConnectButton: React.FC = () => {
     <>
       {address && isConnected ? (
         <>
-          <div className="flex items-center mx-3 rounded-md shadow-md bg-gray-400 dark:bg-gray-600 text-gray-500 px-2 h-9 transition duration-300 ease-in-out">
+          <div className="flex items-center mx-3 rounded-md shadow-md bg-slate-400 dark:bg-slate-600 text-slate-500 px-2 h-9 transition duration-300 ease-in-out">
             <div ref={acctIconRef} className="rounded-full ml-2"></div>
             <div className="ml-2">
               {ensName ? <>{ensName}</> : <>{truncateAddress(address)}</>}
@@ -162,7 +162,7 @@ const ConnectButton: React.FC = () => {
         </button>
       )}
 
-      {/* <div className="flex items-center mr-3 rounded-md shadow-md bg-gray-400 dark:bg-gray-600 text-gray-500 hover:text-grey-700 px-2 h-9 transition duration-300 ease-in-out">
+      {/* <div className="flex items-center mr-3 rounded-md shadow-md bg-slate-400 dark:bg-slate-600 text-slate-500 hover:text-grey-700 px-2 h-9 transition duration-300 ease-in-out">
         <span
           className="flex text-red-500 hover:text-red-700 cursor-pointer"
           onClick={() => deleteCookie("supabaseToken", { path: "/" })}
@@ -171,7 +171,7 @@ const ConnectButton: React.FC = () => {
           del cookie
         </span>
       </div>
-      <div className="flex items-center mr-3 rounded-md shadow-md bg-gray-400 dark:bg-gray-600 text-gray-500 hover:text-grey-700 px-2 h-9 transition duration-300 ease-in-out">
+      <div className="flex items-center mr-3 rounded-md shadow-md bg-slate-400 dark:bg-slate-600 text-slate-500 hover:text-grey-700 px-2 h-9 transition duration-300 ease-in-out">
         {connectedToSupabase === "notchecked" ? (
           <span
             className="flex text-blue-500 hover:text-blue-700 cursor-pointer"

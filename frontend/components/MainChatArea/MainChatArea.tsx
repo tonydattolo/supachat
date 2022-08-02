@@ -91,7 +91,7 @@ const Message: React.FC<Message> = ({ id, address, created_at, message }) => {
         <img
           src={`https://avatars.dicebear.com/api/open-peeps/${seed}.svg`}
           alt=""
-          className="flex-none w-12 h-full rounded-full shadow-md object-cover bg-gray-100 mb-auto mt-0 mx-0"
+          className="flex-none w-12 h-full rounded-full shadow-md object-cover bg-slate-100 mb-auto mt-0 mx-0"
         />
         <span className="text-cyan-700 dark:text-cyan-500 ">
           {truncateAddress(address) ?? "no address"}
@@ -106,7 +106,7 @@ const Message: React.FC<Message> = ({ id, address, created_at, message }) => {
           </small>
         </p>
         <p
-          className="text-lg text-left text-gray-800 dark:text-white 
+          className="text-lg text-left text-slate-800 dark:text-white 
             mr-auto whitespace-normal"
         >
           {message}

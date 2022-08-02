@@ -60,7 +60,7 @@ const BottomTextInput: React.FC = () => {
         className="flex flex-row items-center justify-between 
             fixed left-2 right-2 bottom-2 h-12 
             rounded-lg shadow-lg 
-            bg-gray-400 dark:bg-gray-600
+            bg-slate-400 dark:bg-slate-600
             overflow-y-auto
 
           "
@@ -68,7 +68,7 @@ const BottomTextInput: React.FC = () => {
       >
         <AiFillPlusCircle
           size="30"
-          className="text-green-500 shadow-lg dark:shadow-lg mx-2 dark:text-green-500 hover:text-green-500 cursor-pointer bg-transparent"
+          className="text-green-400 mx-2 dark:text-green-500 hover:text-green-500 cursor-pointer bg-transparent"
           onClick={handleSendMessage}
         />
         <input
@@ -77,7 +77,7 @@ const BottomTextInput: React.FC = () => {
           className="font-semibold w-full max-w-full
           bg-transparent outline-none 
           ml-0 mr-auto
-          text-gray-500  dark:text-gray-400 placeholder-gray-500
+          text-slate-500  dark:text-slate-400 placeholder-slate-500
           cursor-text"
           value={message}
           onChange={(event) => setMessage(event.target.value)}

@@ -52,7 +52,7 @@ export const Layout: React.FC<PropsWithChildren<Props>> = ({
       <div className="flex">
         {/* <SidebarTest />
         <SubchannelSidebar2 /> */}
-        <div className="flex flex-col bg-gray-300 dark:bg-gray-700 m-0 h-full w-full overflow-hidden transition duration-200 ease-in-out">
+        <div className="flex flex-col bg-slate-300 dark:bg-slate-700 m-0 h-full w-full overflow-hidden transition duration-200 ease-in-out">
           <TopNav />
           <MainChatArea />
           <BottomTextInput />

@@ -8,14 +8,14 @@ const TopNav: React.FC = () => {
   return (
     <nav
       className="flex flex-wrap fixed items-center justify-evenly 
-    bg-gray-300 dark:bg-gray-700 bg-opacity-90 
+    bg-slate-300 dark:bg-slate-700 bg-opacity-90 
     h-16 m-0 shadow-lg
     w-screen z-10
     "
     >
       {/* channel title anchored to left side of top nav */}
       <FaHashtag className="title-hashtag" />
-      <h5 className="title-text">channel name here</h5>
+      <h5 className="title-text">ChattyMcChatface</h5>
       <ThemeToggle />
       <SearchBar />
       <ConnectButton />
