@@ -55,7 +55,7 @@ const ConnectButton: React.FC = () => {
 
   const handleTestUserConnected = async () => {
     const { data } = await supabase.from("users").select("*");
-    console.log(`data from test user connection: ${JSON.stringify(data)}`);
+    // console.log(`data from test user connection: ${JSON.stringify(data)}`);
     if (data.length > 0) {
       setConnectedToSupabase("connected");
     } else {
@@ -84,7 +84,7 @@ const ConnectButton: React.FC = () => {
 
     const { nonce } = await res.json();
     setNonce(nonce);
-    console.log("nonce", nonce);
+    // console.log("nonce", nonce);
 
     // have user sign the nonce
     const signature = signMessage({ message: nonce });
@@ -104,13 +104,13 @@ const ConnectButton: React.FC = () => {
     });
 
     const { user } = await res2.json();
-    console.log("user: ", user);
+    // console.log("user: ", user);
     // console.log("token: ", token);
 
-    console.log(
-      "client side cookie read: ",
-      getCookie("supabaseToken", { path: "/" }),
-    );
+    // console.log(
+    //   "client side cookie read: ",
+    //   getCookie("supabaseToken", { path: "/" }),
+    // );
 
     const access_token = getCookie("supabaseToken", { path: "/" }).toString();
 
@@ -133,7 +133,7 @@ const ConnectButton: React.FC = () => {
         console.log("JWT cookie is not set");
         handleGrabNonce();
       } else {
-        console.log("JWT cookie is set, ", getCookie("supabaseToken"));
+        // console.log("JWT cookie is set, ", getCookie("supabaseToken"));
       }
     }
   }, [address, isConnected]);
@@ -147,7 +147,7 @@ const ConnectButton: React.FC = () => {
             <div className="ml-2">
               {ensName ? <>{ensName}</> : <>{truncateAddress(address)}</>}
             </div>
-            <button className="ml-2 mr-2" onClick={() => disconnect()}>
+            <button className="ml-2 mr-2" onClick={() => handleDisconnect()}>
               <FcCancel size="22" />
             </button>
           </div>
@@ -162,7 +162,7 @@ const ConnectButton: React.FC = () => {
         </button>
       )}
 
-      <div className="flex items-center mr-3 rounded-md shadow-md bg-gray-400 dark:bg-gray-600 text-gray-500 hover:text-grey-700 px-2 h-9 transition duration-300 ease-in-out">
+      {/* <div className="flex items-center mr-3 rounded-md shadow-md bg-gray-400 dark:bg-gray-600 text-gray-500 hover:text-grey-700 px-2 h-9 transition duration-300 ease-in-out">
         <span
           className="flex text-red-500 hover:text-red-700 cursor-pointer"
           onClick={() => deleteCookie("supabaseToken", { path: "/" })}
@@ -197,7 +197,7 @@ const ConnectButton: React.FC = () => {
             check supa
           </span>
         )}
-      </div>
+      </div> */}
     </>
   );
 };
