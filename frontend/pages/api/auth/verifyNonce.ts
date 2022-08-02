@@ -2,8 +2,8 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
 import jwt from "jsonwebtoken";
-import supabase from "@/utils/supabase";
 import { verifyMessage } from "ethers/lib/utils";
+import supabaseServer from "@/utils/supabaseServer";
 
 export default async function handler(
   req: NextApiRequest,
@@ -18,7 +18,7 @@ export default async function handler(
     return;
   }
 
-  let { data: user, error } = await supabase
+  let { data: user, error } = await supabaseServer
     .from("users")
     .select("*")
     .eq("address", address)
