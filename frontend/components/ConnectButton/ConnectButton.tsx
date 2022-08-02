@@ -49,7 +49,7 @@ const ConnectButton: React.FC = () => {
     if (error) {
       console.error("error signing out", JSON.stringify(error, null, 2));
     }
-    httpOnlyDeleteCookie();
+    handleDeleteCookie();
     disconnect();
   };
 
@@ -63,15 +63,7 @@ const ConnectButton: React.FC = () => {
     }
   };
 
-  const httpOnlyDeleteCookie = async () => {
-    // const res = await fetch("/api/auth/deleteJwt", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    // });
-    // const data = await res.json();
-    // console.log("data from delete cookie call", JSON.stringify(data));
+  const handleDeleteCookie = async () => {
     deleteCookie("supabaseToken", { path: "/" });
   };
 
